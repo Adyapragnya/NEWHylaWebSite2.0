@@ -119,3 +119,46 @@ fetchVesselData();
 setInterval(fetchVesselData, 10000); // Refresh every 10 seconds
 });
 
+
+(function() {
+    // Disable right-click (context menu)
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // Disable F12 key (Developer Tools)
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode === 123) {  // F12 key
+            e.preventDefault();
+        }
+
+        // Disable Ctrl+U (View Source on Windows)
+        if (e.ctrlKey && e.key === 'u') {
+            e.preventDefault();
+            alert('Viewing source is disabled!');
+        }
+    });
+
+    // Detect if developer tools are open (both Desktop and Mobile)
+    var devtools = /./;
+    devtools.toString = function() {
+        this.open = true;
+    };
+    setInterval(function() {
+        if (devtools.open) {
+            alert('Developer tools are open!');
+            // You can redirect or take any action you like here
+        }
+    }, 1000);
+
+    // Disable text selection (discourages inspecting elements)
+    document.body.style.userSelect = 'none';
+
+    // Override console methods (blocks access to the console)
+    console.log = function() {};
+    console.warn = function() {};
+    console.error = function() {};
+
+})();
+
+
